@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Webpage</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            color: #333;
+            padding: 20px;
+        }
+
+        header {
+            display: flex;
+            margin: auto;
+            justify-content: center;
+            border-radius: 8px;
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 0;
+            text-align: center;
+            max-width: 640px;
+        }
+
+        main {
+            max-width: 600px;
+            margin: 20px auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        img {
+            display: block;
+            margin: 20px auto;
+            width: 100%;
+            max-width: 300px;
+            border-radius: 8px;
+        }
+
+        button {
+            display: block;
+            margin: 20px auto;
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+        p{
+            text-align: center;
+        }
+        @media screen and (max-width:500px) {
+            h1{
+                font-size: 1.7rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Welcome to My Webpage</h1>
+    </header>
+    <main>
+        <p>This is a simple webpage created using HTML, styled with CSS, and made interactive with JavaScript.</p>
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQOiBSrY3rPB6EYrh3FaDqXejdrHY_MZKMmPIJ0IKPsuyaIWBZdqJkJItFZ9ndL3i6HTBI&usqp=CAU" alt="Placeholder Image">
+        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Excepturi aliquid, voluptatum.</p>
+        <img src="https://media.istockphoto.com/id/1371339413/photo/co-working-team-meeting-concept-businessman-using-smart-phone-and-digital-tablet-and-laptop.jpg?s=612x612&w=0&k=20&c=ysEsVw3q2axYt3oVZAuQjtHRlN3lY-U_e0ikK5yKIXQ=" alt="Placeholder Image">
+        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Excepturi aliquid, voluptatum.</p>
+        <p>Check out my <a href="https://www.google.com" target="_blank">favorite website</a>!</p>
+        <button id="alertButton">Click Me!</button>
+    </main>
+    <script>
+        document.getElementById('alertButton').addEventListener('click', function() {
+            alert('Button Clicked!');
+        });
+    </script>
+</body>
+</html>
