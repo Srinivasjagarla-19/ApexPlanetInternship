@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Web Page</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        .container {
+            width: 80%;
+            margin: 0 auto;
+            padding: 40px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        h1,
+        h2 {
+            color: #4CAF50;
+            text-align: center;
+        }
+
+        .carousel-container {
+            margin-bottom: 40px;
+        }
+
+        .carousel {
+            display: flex;
+            overflow: hidden;
+            width: 100%;
+            max-width: 600px;
+            margin: 20px auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .carousel img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+        }
+
+        .buttons {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .buttons button {
+            padding: 10px 20px;
+            margin: 5px;
+            font-size: 16px;
+            background-color: #4CAF50;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .buttons button:hover {
+            background-color: #45a049;
+        }
+
+        .quiz-container {
+            margin-top: 30px;
+            text-align: center;
+        }
+
+        .quiz-question {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        .quiz-answer {
+            margin: 5px 0;
+        }
+
+        .quiz-answer button {
+            padding: 8px 16px;
+            font-size: 16px;
+            margin: 5px;
+            background-color: #2196F3;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .quiz-answer button:hover {
+            background-color: #1e88e5;
+        }
+
+        #quiz-result {
+            font-size: 18px;
+            text-align: center;
+            margin-top: 15px;
+        }
+
+        .restart {
+            padding: 10px;
+            border: none;
+            border-radius: 15px;
+            margin-top: 8px;
+            background-color: hsl(0, 10%, 92%);
+            transition: background-color .1s linear;
+        }
+
+        .restart:hover {
+            background-color: hsl(0, 10%, 84%);
+        }
+
+        .api-container {
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        .api-container p {
+            font-size: 18px;
+        }
+
+        @media (max-width: 768px) {
+            body{
+                margin-top: 20px;
+            }
+            .container {
+                width: 100%;
+                height: 100vh;
+                padding: 15px;
+            }
+
+            h1,
+            h2 {
+                font-size: 24px;
+            }
+
+            .carousel-container {
+                max-width: 100%;
+            }
+
+            .carousel img {
+                border-radius: 8px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <h1>Web Page</h1>
+
+        <div class="carousel-container">
+            <h2>Image Carousel</h2>
+            <div class="carousel">
+                <img src="https://static.vecteezy.com/system/resources/thumbnails/024/669/482/small_2x/mountain-countryside-landscape-at-sunset-dramatic-sky-over-a-distant-valley-green-fields-and-trees-on-hill-beautiful-natural-landscapes-of-the-carpathians-generative-ai-variation-8-photo.jpeg"
+                    alt="Image 1">
+                <img src="https://www.shutterstock.com/shutterstock/photos/2198245029/display_1500/stock-photo-autumn-nature-landscape-lake-bridge-in-fall-forest-path-way-in-gold-woods-romantic-view-image-2198245029.jpg"
+                    alt="Image 2">
+                <img src="https://images.pexels.com/photos/414612/pexels-photo-414612.jpeg?cs=srgb&dl=pexels-souvenirpixels-414612.jpg&fm=jpg"
+                    alt="Image 3">
+            </div>
+            <div class="buttons">
+                <button onclick="prevImage()"> Previous </button>
+                <button onclick="nextImage()"> Next </button>
+            </div>
+        </div>
+
+        <div class="quiz-container">
+            <h2>Quiz</h2>
+            <div id="quiz-question-container">
+                <p class="quiz-question">What is the capital of France?</p>
+                <div class="quiz-answer">
+                    <button onclick="checkAnswer('Paris', 0)">Paris</button>
+                    <button onclick="checkAnswer('London', 0)">London</button>
+                    <button onclick="checkAnswer('Berlin', 0)">Berlin</button>
+                </div>
+            </div>
+            <button onclick="restartQuiz()" class="restart">Restart Quiz</button>
+            <div id="quiz-result"></div>
+        </div>
+
+        <div class="api-container">
+            <h2>API Data</h2>
+            <p>Current Bitcoin Price:</p>
+            <p id="btc-price">Loading...</p>
+
+            <p>Weather Data:</p>
+            <p id="weather-data">Loading...</p>
+        </div>
+    </div>
+
+    <script>
+        let currentIndex = 0;
+        const images = document.querySelectorAll('.carousel img');
+
+        function showImage(index) {
+            images.forEach((img, i) => {
+                img.style.display = i === index ? 'block' : 'none';
+            });
+        }
+
+        function nextImage() {
+            currentIndex = (currentIndex + 1) % images.length;
+            showImage(currentIndex);
+        }
+
+        function prevImage() {
+            currentIndex = (currentIndex - 1 + images.length) % images.length;
+            showImage(currentIndex);
+        }
+
+        showImage(currentIndex);
+
+        const questions = [
+            { question: "What is the capital of France?", correctAnswer: "Paris", options: ["Paris", "London", "Berlin"] },
+            { question: "Which planet is known as the Red Planet?", correctAnswer: "Mars", options: ["Mars", "Venus", "Jupiter"] },
+            { question: "What is the largest ocean on Earth?", correctAnswer: "Pacific", options: ["Pacific", "Atlantic", "Indian"] },
+            { question: "Which is the largest continent?", correctAnswer: "Asia", options: ["Asia", "Africa", "Europe"] },
+            { question: "What is the boiling point of water?", correctAnswer: "100°C", options: ["100°C", "90°C", "120°C"] }
+        ];
+
+        let currentQuestionIndex = 0;
+
+        function loadQuestion(index) {
+            if (index < questions.length) {
+                const question = questions[index];
+                document.querySelector('.quiz-question').textContent = question.question;
+                const answerButtons = document.querySelectorAll('.quiz-answer button');
+                answerButtons[0].textContent = question.options[0];
+                answerButtons[1].textContent = question.options[1];
+                answerButtons[2].textContent = question.options[2];
+            } else {
+                document.getElementById('quiz-result').textContent = 'Quiz Completed!';
+            }
+        }
+
+        function checkAnswer(answer, questionIndex) {
+            const result = document.getElementById('quiz-result');
+            if (questions[questionIndex].correctAnswer === answer) {
+                result.textContent = 'Correct!';
+                result.style.color = 'green';
+            } else {
+                result.textContent = 'Incorrect, try again!';
+                result.style.color = 'red';
+            }
+
+            setTimeout(() => {
+                currentQuestionIndex++;
+                loadQuestion(currentQuestionIndex);
+            }, 1000);
+        }
+
+        function restartQuiz() {
+            currentQuestionIndex = 0;
+            document.getElementById('quiz-result').textContent = '';
+            loadQuestion(currentQuestionIndex);
+        }
+
+        loadQuestion(currentQuestionIndex);
+
+        function fetchAPIData() {
+            fetch('https://api.coindesk.com/v1/bpi/currentprice/BTC.json')
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('btc-price').textContent = `$${data.bpi.USD.rate}`;
+                })
+                .catch(error => {
+                    console.error('Error fetching Bitcoin data:', error);
+                    document.getElementById('btc-price').textContent = 'Failed to load Bitcoin data.';
+                });
+
+            const weatherApiKey = 'Your_API_key';
+            const location = '........';
+            const weatherUrl = `https://api.tomorrow.io/v4/weather/forecast?location=${location}&apikey=${weatherApiKey}`;
+
+            fetch(weatherUrl)
+                .then(response => response.json())
+                .then(data => {
+                    const forecast = data.timelines.daily[0];
+                    const weatherData = `Temperature: ${forecast.values.temperatureAvg}°C, Precipitation: ${forecast.values.precipitationSum}mm`;
+                    document.getElementById('weather-data').textContent = weatherData;
+                })
+                .catch(error => {
+                    console.error('Error fetching weather data:', error);
+                    document.getElementById('weather-data').textContent = `Failed to load weather data. Error: ${error.message}`;
+                });
+
+        }
+
+        fetchAPIData();
+    </script>
+
+</body>
+
+</html>
